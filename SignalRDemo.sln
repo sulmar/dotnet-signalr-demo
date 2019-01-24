@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDemo.Service", "SignalRDemo.Service\SignalRDemo.Service.csproj", "{3C9D59D7-F2BC-4C3A-AD63-EB8D5395CB1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDemo.ConsoleClient", "SignalRDemo.ConsoleClient\SignalRDemo.ConsoleClient.csproj", "{1D1BBBE8-9EE3-4102-B403-AD2FB7C171D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3C9D59D7-F2BC-4C3A-AD63-EB8D5395CB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C9D59D7-F2BC-4C3A-AD63-EB8D5395CB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C9D59D7-F2BC-4C3A-AD63-EB8D5395CB1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1BBBE8-9EE3-4102-B403-AD2FB7C171D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1BBBE8-9EE3-4102-B403-AD2FB7C171D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1BBBE8-9EE3-4102-B403-AD2FB7C171D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1BBBE8-9EE3-4102-B403-AD2FB7C171D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
