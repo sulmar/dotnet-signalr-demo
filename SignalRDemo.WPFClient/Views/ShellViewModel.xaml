@@ -10,6 +10,8 @@
     <StackPanel>
 
 
+        <TextBlock Text="{Binding ConnectionState}" />
+
         <Button Width="200" Height="100" Content="Send" Command="{Binding SendCommand}" />
 
         <ListBox ItemsSource="{Binding Customers}" DisplayMemberPath="FirstName"/>

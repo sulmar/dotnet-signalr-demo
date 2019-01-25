@@ -92,7 +92,7 @@ namespace SignalRDemo.ConsoleClient
 
                     Console.WriteLine("sending...");
 
-                    var customer = new Customer { FirstName = firstName };
+                    var customer = new Customer { Id = 99, FirstName = firstName, LastName = "Smith", StartupDate = DateTime.Now };
 
                     await routesHubProxy.Invoke<Customer>("SendCustomer", customer);
 

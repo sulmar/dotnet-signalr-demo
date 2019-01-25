@@ -29,5 +29,10 @@ namespace SignalRDemo.WPFClient.Command
         {
             execute(parameter);
         }
+
+        public void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

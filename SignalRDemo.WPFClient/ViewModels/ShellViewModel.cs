@@ -12,14 +12,15 @@ using System.Windows.Input;
 
 namespace SignalRDemo.WPFClient.ViewModels
 {
-    // Install-Package Microsoft.AspNetCore.SignalR.Client
+    // Install-Package Microsoft.AspNet.SignalR.Client
     public class ShellViewModel
     {
         private readonly HubConnection hubConnection;
         IHubProxy routesHubProxy;
 
-        public ICommand SendCommand { get; set; }
+        public RelayCommand SendCommand { get; set; }
 
+        public ConnectionState ConnectionState => ConnectionState.Connected;
 
         public ObservableCollection<Customer> Customers { get; set; }
 
@@ -27,11 +28,12 @@ namespace SignalRDemo.WPFClient.ViewModels
         {
             Customers = new ObservableCollection<Customer>();
 
-            this.SendCommand = new RelayCommand(p => Send());
+            this.SendCommand = new RelayCommand(p => Send(), ()=>hubConnection.State == ConnectionState.Connected);
 
             this.hubConnection = hubConnection;
 
             hubConnection.Closed += HubConnection_Closed;
+            hubConnection.Error += ex => Console.WriteLine("SignalR error: {0}", ex.Message);
 
 
             routesHubProxy = hubConnection.CreateHubProxy("CustomersHub");
@@ -39,9 +41,16 @@ namespace SignalRDemo.WPFClient.ViewModels
             routesHubProxy.On<Customer>("broadcastCustomer", OnChangedCustomer);
 
             hubConnection.Start();
+
+            hubConnection.StateChanged += HubConnection_StateChanged;
         }
 
-        
+        private void HubConnection_StateChanged(StateChange obj)
+        {
+          
+            DispatchService.Invoke(()=>SendCommand.OnCanExecuteChanged());
+        }
+
         private void OnChangedCustomer(Customer customer)
         {
             DispatchService.Invoke(()=>Customers.Add(customer));
@@ -57,7 +66,7 @@ namespace SignalRDemo.WPFClient.ViewModels
 
         private void Send()
         {
-            Customer customer = new Customer { Id = 1, FirstName = "Company 1" };
+            var customer = new Customer { Id = 99, FirstName = "John", LastName = "Smith", StartupDate = DateTime.Now };
 
             routesHubProxy.Invoke<Customer>("SendCustomer", customer);
 
