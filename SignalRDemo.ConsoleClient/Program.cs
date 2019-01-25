@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
+using SignalRDemo.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SignalRDemo.ConsoleClient
@@ -17,16 +15,23 @@ namespace SignalRDemo.ConsoleClient
         {
             Console.WriteLine("SignalR Client started.");
 
-            await SignalRClientTest();
+
+
+            // await SignalRClientTest();
+
+            await SignalRClientCustomerTest();
 
             Console.WriteLine("Press any key exit.");
             Console.ReadKey();
         }
 
+
         // Install-Package Microsoft.AspNet.SignalR.Client
         private static async Task SignalRClientTest()
         {
             var hubConnection = new HubConnection("http://localhost:53721/hubs", useDefaultUrl: false);
+            hubConnection.TraceLevel = TraceLevels.All;
+            hubConnection.TraceWriter = Console.Out;
 
             IHubProxy routesHubProxy = hubConnection.CreateHubProxy("MessagesHub");
             routesHubProxy.On<string>("broadcastMessage", message => Console.WriteLine($"received {message}"));
@@ -53,6 +58,47 @@ namespace SignalRDemo.ConsoleClient
                     Console.WriteLine("sent.");
                 }
                 while (message != "q");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetError());
+            }
+        }
+
+
+        private static async Task SignalRClientCustomerTest()
+        {
+            var hubConnection = new HubConnection("http://localhost:53721/hubs", useDefaultUrl: false);
+            hubConnection.TraceLevel = TraceLevels.All;
+            hubConnection.TraceWriter = Console.Out;
+
+            IHubProxy routesHubProxy = hubConnection.CreateHubProxy("MessagesHub");
+            routesHubProxy.On<Customer>("broadcastCustomer", customer => Console.WriteLine($"received {customer.FirstName}"));
+
+            try
+            {
+                Console.WriteLine("connecting...");
+                await hubConnection.Start();
+
+                Console.WriteLine("connected.");
+
+                string firstName;
+
+                do
+                {
+                    Console.WriteLine("Type customer name or (q)uit");
+
+                    firstName = Console.ReadLine();
+
+                    Console.WriteLine("sending...");
+
+                    var customer = new Customer { FirstName = firstName };
+
+                    await routesHubProxy.Invoke<Customer>("SendCustomer", customer);
+
+                    Console.WriteLine("sent.");
+                }
+                while (firstName != "q");
             }
             catch (Exception e)
             {

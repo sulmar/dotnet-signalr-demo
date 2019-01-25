@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
+using SignalRDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace SignalRDemo.Service.Hubs
         public void Send(string message)
         {
             Clients.Others.broadcastMessage(message);
+        }
+
+        public void SendCustomer(Customer customer)
+        {
+            Clients.Others.broadcastCustomer(customer);
         }
 
         public override Task OnConnected()
