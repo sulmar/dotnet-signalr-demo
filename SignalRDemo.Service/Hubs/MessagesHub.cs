@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.SignalR;
-using SignalRDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +7,12 @@ using System.Web;
 
 namespace SignalRDemo.Service.Hubs
 {
+    // Przykład Huba bez silnego typowania
     public class MessagesHub : Hub
     {
         public void Send(string message)
         {
             Clients.Others.broadcastMessage(message);
-        }
-
-        public void SendCustomer(Customer customer)
-        {
-            Clients.Others.broadcastCustomer(customer);
         }
 
         public override Task OnConnected()

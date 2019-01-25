@@ -34,6 +34,8 @@ namespace SignalRDemo.ConsoleClient
             hubConnection.TraceWriter = Console.Out;
 
             IHubProxy routesHubProxy = hubConnection.CreateHubProxy("MessagesHub");
+            
+
             routesHubProxy.On<string>("broadcastMessage", message => Console.WriteLine($"received {message}"));
 
             try
@@ -72,7 +74,7 @@ namespace SignalRDemo.ConsoleClient
             hubConnection.TraceLevel = TraceLevels.All;
             hubConnection.TraceWriter = Console.Out;
 
-            IHubProxy routesHubProxy = hubConnection.CreateHubProxy("MessagesHub");
+            IHubProxy routesHubProxy = hubConnection.CreateHubProxy("CustomersHub");
             routesHubProxy.On<Customer>("broadcastCustomer", customer => Console.WriteLine($"received {customer.FirstName}"));
 
             try
