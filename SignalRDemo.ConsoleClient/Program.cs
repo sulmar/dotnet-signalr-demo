@@ -15,9 +15,7 @@ namespace SignalRDemo.ConsoleClient
         {
             Console.WriteLine("SignalR Client started.");
 
-
-
-            // await SignalRClientTest();
+           //  await SignalRClientTest();
 
             await SignalRStrongTypedClientTest();
 
