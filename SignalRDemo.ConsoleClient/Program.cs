@@ -19,7 +19,7 @@ namespace SignalRDemo.ConsoleClient
 
             // await SignalRClientTest();
 
-            await SignalRClientCustomerTest();
+            await SignalRStrongTypedClientTest();
 
             Console.WriteLine("Press any key exit.");
             Console.ReadKey();
@@ -68,7 +68,7 @@ namespace SignalRDemo.ConsoleClient
         }
 
 
-        private static async Task SignalRClientCustomerTest()
+        private static async Task SignalRStrongTypedClientTest()
         {
             var hubConnection = new HubConnection("http://localhost:53721/hubs", useDefaultUrl: false);
             hubConnection.TraceLevel = TraceLevels.All;
